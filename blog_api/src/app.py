@@ -4,6 +4,8 @@ from flask import Flask
 
 from .config import app_config
 from .models import db, bcrypt # add this new line
+# import user_api blueprint
+from .views.UserView import user_api as user_blueprint # add this line
 
 def create_app(env_name):
     """
@@ -18,6 +20,8 @@ def create_app(env_name):
     bcrypt.init_app(app)  # add this line
 
     db.init_app(app)  # add this line
+
+    app.register_blueprint(user_blueprint, url_prefix='/api/v1/users')  # add this line
     @app.route('/', methods=['GET'])
     def index():
         """
