@@ -36,8 +36,8 @@ class Auth():
       )
 
     # decorator
-    @staticmethod
-    def auth_required(func):
+  @staticmethod
+  def auth_required(func):
       """
       Auth decorator
       """
@@ -67,7 +67,7 @@ class Auth():
             response=json.dumps({'error': 'user does not exist, invalid token'}),
             status=400
           )
-        g.user = {'id': user_id}
-        return func(*args, **kwargs)
+          g.user = {'id': user_id}
+          return func(*args, **kwargs)
 
-      return decorated_auth
+          return decorated_auth

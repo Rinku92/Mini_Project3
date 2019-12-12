@@ -30,16 +30,11 @@ def create():
 
     ser_data = user_schema.dump(user).data
 
+
     token = Auth.generate_token(ser_data.get('id'))
 
     return custom_response({'jwt_token': token}, 201)
-# add this new method
-@user_api.route('/', methods=['GET'])
-@Auth.auth_required
-def get_all():
-  users = UserModel.get_all_users()
-  ser_users = user_schema.dump(users, many=True).data
-  return custom_response(ser_users, 200)
+
 
 @user_api.route('/login', methods=['POST'])
 def login():
@@ -66,6 +61,24 @@ def login():
     token = Auth.generate_token(ser_data.get('id'))
 
     return custom_response({'jwt_token': token}, 200)
+
+
+@user_api.route('/', methods=['GET'])
+@Auth.auth_required
+def get_all():
+  users = UserModel.get_all_users()
+  ser_users = user_schema.dump(users, many=True).data
+  return custom_response(ser_users, 200)
+
+def custom_response(res, status_code):
+    """
+    Custom Response Function
+    """
+    return Response(
+        mimetype="application/json",
+        response=json.dumps(res),
+        status=status_code
+    )
 
 
 @user_api.route('/<int:user_id>', methods=['GET'])
@@ -119,14 +132,3 @@ def get_me():
     user = UserModel.get_one_user(g.user.get('id'))
     ser_user = user_schema.dump(user).data
     return custom_response(ser_user, 200)
-
-
-def custom_response(res, status_code):
-    """
-    Custom Response Function
-    """
-    return Response(
-        mimetype="application/json",
-        response=json.dumps(res),
-        status=status_code
-    )

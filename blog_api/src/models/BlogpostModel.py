@@ -52,7 +52,7 @@ class BlogpostModel(db.Model):
         return '<id {}>'.format(self.id)
 
     # add this new class
-    class BlogpostSchema(Schema):
+class BlogpostSchema(Schema):
         """
         Blogpost Schema
         """

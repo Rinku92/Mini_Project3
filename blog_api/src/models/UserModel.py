@@ -5,7 +5,7 @@ from marshmallow import fields, Schema
 from ..app import bcrypt
 import datetime
 from . import db
-from .BlogpostModel import BlogpostSchema
+from .BlogpostModel  import BlogpostSchema
 
 class UserModel(db.Model):
     """
@@ -69,7 +69,7 @@ class UserModel(db.Model):
     def __repr(self):
         return '<id {}>'.format(self.id)
 
-    class UserSchema(Schema):
+class UserSchema(Schema):
         """
         User Schema
         """
