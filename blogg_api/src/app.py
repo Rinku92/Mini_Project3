@@ -1,7 +1,7 @@
 # src/app.py
 
 from flask import Flask
-
+from flask_sqlalchemy import SQLAlchemy
 from .config import app_config
 from .models import db, bcrypt # add this new line
 
